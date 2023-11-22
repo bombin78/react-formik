@@ -1,9 +1,9 @@
 // import classnames from 'classnames';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import styles from './SimpleForm.module.scss';
+import styles from './SimpleFormExample2.module.scss';
 
-function SimpleForm() {
+function SimpleFormExample2() {
 
     const initialValues = {
         name: '',
@@ -19,37 +19,6 @@ function SimpleForm() {
         console.log('Form values', values);
     };
 
-    // const validate = (values: {
-    //     name: string,
-    //     email: string,
-    //     channel: string,
-    // }) => {
-    //     // values.name => errors.name = 'This field is required'
-    //     // values.email => errors.email
-    //     // values.channel => errors.channel
-    //     const errors: {
-    //         name?: string,
-    //         email?: string,
-    //         channel?: string,
-    //     } = {};
-
-    //     if(!values.name) {
-    //         errors.name = 'Required';
-    //     }
-
-    //     if(!values.email) {
-    //         errors.email = 'Required';
-    //     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    //         errors.email = 'Invalid email format';
-    //     }
-
-    //     if(!values.channel) {
-    //         errors.channel = 'Required';
-    //     }
-
-    //     return errors;
-    // };
-
     const validationSchema = yup.object({
         name: yup.string().required('Required'),
         email: yup.string().email('Invalid email format').required('Required'),
@@ -58,16 +27,14 @@ function SimpleForm() {
 
     const formik = useFormik({
         initialValues,
-        onSubmit,
         validationSchema,
-        // validate,
+        onSubmit,
     });
-
-    console.log('Form errors', formik.errors);
-    console.log('Form touched', formik.touched);
 
     return (
         <div className={styles.formWrap}>
+            <h1>Форма 3</h1>
+            
 		    <form onSubmit={formik.handleSubmit} >
                 <div className='form-control'>
                     <label htmlFor='name'>Name</label>
@@ -128,4 +95,4 @@ function SimpleForm() {
     )
 }
 
-export default SimpleForm
+export default SimpleFormExample2;

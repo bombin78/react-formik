@@ -1,11 +1,15 @@
+import SimpleFormType1 from './components/SimpleFormType1';
+import SimpleFormType2 from './components/SimpleFormType2';
+import SimpleFormType3 from './components/SimpleFormType3';
 import './App.css';
-import SimpleForm from './components/SimpleForm';
 
 function App() {
 
     return (
         <div className='app'>
-            <SimpleForm />
+            <SimpleFormType1 />
+            <SimpleFormType2 />
+            <SimpleFormType3 />
         </div>
     )
 }
