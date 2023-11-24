@@ -1,6 +1,6 @@
 // import classnames from 'classnames';
 import { useFormik } from 'formik';
-import styles from './SimpleFormExample1.module.scss';
+import styles from './styles.module.scss';
 
 function SimpleFormExample1() {
 

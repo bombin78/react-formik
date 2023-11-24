@@ -1,9 +1,9 @@
 // import classnames from 'classnames';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import styles from './SimpleFormExample2.module.scss';
+import styles from './styles.module.scss';
 
-function SimpleFormExample2() {
+function SimpleFormExample3() {
 
     const initialValues = {
         name: '',
@@ -41,14 +41,7 @@ function SimpleFormExample2() {
                     <input
                         type='text'
                         id='name'
-                        name='name'
-                        value={formik.values.name}
-                        // Для отслеживания посещения поля используем атрибут onBlur
-                        // и функцию formik.handleBlur/ Информация о посещении попадает
-                        // в объект formik.touched. А если более точно, то в поле 
-                        // formik.touched[значение атрибута name]
-                        onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
+                        {...formik.getFieldProps('name')}
                     />
                     {/* Если поле посещено и есть сообщение об ошибке, то показываем ошибку */}
                     {formik.touched.name && formik.errors.name
@@ -62,10 +55,7 @@ function SimpleFormExample2() {
                     <input
                         type='email'
                         id='email'
-                        name='email'
-                        value={formik.values.email}
-                        onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
+                        {...formik.getFieldProps('email')}
                     />
                     {formik.touched.email && formik.errors.email 
                         ? <div className='error'>{formik.errors.email }</div>
@@ -78,10 +68,7 @@ function SimpleFormExample2() {
                     <input
                         type='text'
                         id='channel'
-                        name='channel'
-                        value={formik.values.channel}
-                        onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
+                        {...formik.getFieldProps('channel')}
                     />
                     {formik.touched.channel && formik.errors.channel 
                         ? <div className='error'>{formik.errors.channel }</div>
@@ -95,4 +82,4 @@ function SimpleFormExample2() {
     )
 }
 
-export default SimpleFormExample2;
+export default SimpleFormExample3;
