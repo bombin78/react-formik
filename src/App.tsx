@@ -3,6 +3,7 @@ import SimpleFormExample1 from './pages/SimpleFormExample1';
 import SimpleFormExample2 from './pages/SimpleFormExample2';
 import SimpleFormExample3 from './pages/SimpleFormExample3';
 import SimpleFormExample4 from './pages/SimpleFormExample4';
+import SimpleFormExample5 from './pages/SimpleFormExample5';
 import './App.css';
 import About from './pages/About';
 
@@ -17,6 +18,7 @@ function App() {
                         <Link className="navbarLink" to="/example2">Пример 2</Link>
                         <Link className="navbarLink" to="/example3">Пример 3</Link>
                         <Link className="navbarLink" to="/example4">Пример 4</Link>
+                        <Link className="navbarLink" to="/example5">Пример 5</Link>
                     </div>
                     <Routes>
                         <Route path="/" element={<About />} />
@@ -24,6 +26,7 @@ function App() {
                         <Route path="/example2" element={<SimpleFormExample2 />} />
                         <Route path="/example3" element={<SimpleFormExample3 />} />
                         <Route path="/example4" element={<SimpleFormExample4 />} />
+                        <Route path="/example5" element={<SimpleFormExample5 />} />
                     </Routes>
             </div>
         </BrowserRouter>
