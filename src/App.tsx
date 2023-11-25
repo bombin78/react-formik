@@ -47,7 +47,7 @@ function App() {
                 <AppBar position="fixed">
                     <Toolbar>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        My App
+                            Forms with React18, Formik, Yup and Material UI
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -108,7 +108,15 @@ function App() {
                         </List>
                     </Drawer>
 
-                    <Container component="main" sx={{ flexGrow: 1, p: 3, marginTop: '64px', display: 'flex' }}>
+                    <Container 
+                        component="main" 
+                        sx={{ 
+                            display: 'flex',
+                            flexGrow: 1, 
+                            marginTop: '64px', 
+                            p: 3, 
+                        }}
+                    >
                         <Routes>
                             <Route path="/" element={<About />} />
                             <Route path="/example1" element={<SimpleFormExample1 />} />
