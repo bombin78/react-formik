@@ -47,7 +47,7 @@ function App() {
                 <AppBar position="fixed">
                     <Toolbar>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            Forms with React18, Formik, Yup and Material UI
+                            Forms with React18, TypeScript, Formik, Yup and Material UII
                         </Typography>
                     </Toolbar>
                 </AppBar>

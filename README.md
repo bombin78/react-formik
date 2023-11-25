@@ -1,2 +1,1 @@
-# Forms with React18, Formik, Yup and Material UI
-## (React + TypeScript + Vite)
+# Forms with React18, TypeScript, Formik, Yup and Material UI
