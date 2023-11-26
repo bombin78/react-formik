@@ -103,6 +103,7 @@ function SimpleFormExample5() {
                             name='comment'
                             placeholder='Добавьте комментарий'
                         />
+                        {/* Использование кастомного компонента ошибки вместо третьего варианта вывода ошибки */}
                         <MyErrorMessage name="comment"/>
                     </div>
 

@@ -1,7 +1,11 @@
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+// import classnames from 'classnames';
+import { 
+    Formik, 
+    Form, 
+    Field,
+    ErrorMessage,
+    FieldProps,
+} from 'formik';
 import * as yup from 'yup';
 import styles from './styles.module.scss';
 import MyErrorMessage from '../../components/MyErrorMessage';
@@ -12,6 +16,10 @@ interface IValuesProps {
     channel: string;
     comment: string;
     address: string;
+    social: {
+        facebook: string;
+        twitter: string;
+    }
 }
 
 function SimpleFormExample6() {
@@ -21,6 +29,10 @@ function SimpleFormExample6() {
         channel: '',
         comment: '',
         address: '',
+        social: {
+            facebook: '',
+            twitter: '',
+        }
     };
 
     const onSubmit = (values: IValuesProps) => {
@@ -33,6 +45,10 @@ function SimpleFormExample6() {
         channel: yup.string().required('Required'),
         comment: yup.string().required('Required'),
         address: yup.string().required('Required'),
+        social: yup.object({
+            facebook: yup.string().required('Required'),
+            twitter: yup.string().required('Required'),
+        }),
     });
 
     return (
@@ -52,13 +68,12 @@ function SimpleFormExample6() {
                             id='name'
                             name='name'
                             placeholder='Введите имя'
-                            as={TextField}
                         />
-                        <ErrorMessage
-                            component="div"
-                            name='name'
-                            className='error'
-                        />
+                        {/* ErrorMessage - компонент, который отображает сообщение об ошибке для поля, если 
+                        оно было посещено и присутствует сообщение об ошибке. В данном случае, валидируемое
+                        поле связывается с ErrorMessage через указание значения в атрибуте name */}
+                        {/* Первый вариант вывода ошибки */}
+                        <ErrorMessage component="div" name='name' className='error'/>
                     </div>
 
                     <div className='form-control'>
@@ -68,14 +83,14 @@ function SimpleFormExample6() {
                             id='email'
                             name='email'
                             placeholder='Введите email'
-                            as={TextField}
                         />
-                        <ErrorMessage
-                            render={(msg) => <div className='error'>{msg}</div>}
-                            name='email'
-                        />
+                        {/* Второй вариант вывода ошибки */}
+                        <ErrorMessage name='email'>
+                            {(msg) => <div className='error'>{msg}</div>}
+                        </ErrorMessage>
                     </div>
 
+                    {/* Field: по умолчанию создаст input */}
                     <div className='form-control'>
                         <label htmlFor='channel'>Channel</label>
                         <Field
@@ -83,41 +98,70 @@ function SimpleFormExample6() {
                             id='channel'
                             name='channel'
                             placeholder='Укажите ссылку на канал'
-                            as={TextField}
                         />
-                        <ErrorMessage name='channel'>
-                            {(msg) => <div className='error'>{msg}</div>}
-                        </ErrorMessage>
+                        {/* Третий вариант вывода ошибки */}
+                        <ErrorMessage 
+                            render={(msg) => <div className='error'>{msg}</div>} 
+                            name='channel'
+                        />
                     </div>
 
+                    {/* Field: первый способ задания HTML-элемента отличного от input: as='' */}
                     <div className='form-control'>
                         <label htmlFor='comment'>Comment</label>
                         <Field
-                            as={TextField}
+                            as='textarea'
                             id='comment'
                             name='comment'
                             placeholder='Добавьте комментарий'
-                            multiline
-                            rows={4}
                         />
+                        {/* Использование кастомного компонента ошибки вместо третьего варианта вывода ошибки */}
                         <MyErrorMessage name="comment"/>
                     </div>
 
+                    {/* Field: второй способ задания HTML-элемента отличного от input: children */}
                     <div className='form-control'>
                         <label htmlFor='address'>Address</label>
                         <Field name='address'>
-                        {({ field, meta }: { field: any, meta: any }): React.ReactNode => (
-                            <>
-                            <TextField type="text" id="address" {...field} />
-                            {meta.touched && meta.error ? <div className='error'>{meta.error}</div> : null}
-                            </>
-                        )}
+                            {
+                                ({field, form, meta}: FieldProps): React.ReactNode => {
+                                    return (
+                                       <>
+                                            <input type="text" id="address" {...field} />
+                                            {meta.touched && meta.error
+                                                ? <div className='error'>{meta.error }</div>
+                                                : null
+                                            }
+                                        </> 
+                                    )
+                                }
+                            }
                         </Field>
                     </div>
 
-                    <Button type='submit' variant="contained" color="primary">
-                        Submit
-                    </Button>
+                    <div className='form-control'>
+                        <label htmlFor='facebook'>Профиль в facebook</label>
+                        <Field
+                            type='text'
+                            id='facebook'
+                            name='social.facebook'
+                            placeholder='Укажите ссылку на facebook'
+                        />
+                        <MyErrorMessage name="social.facebook" />
+                    </div>
+
+                    <div className='form-control'>
+                        <label htmlFor='twitter'>Профиль в twitter</label>
+                        <Field
+                            type='text'
+                            id='twitter'
+                            name='social.twitter'
+                            placeholder='Укажите ссылку на twitter'
+                        />
+                        <MyErrorMessage name="social.twitter" />
+                    </div>
+
+                    <button type='submit'>Submit</button>
                 </Form>
             </Formik>
         </div>
