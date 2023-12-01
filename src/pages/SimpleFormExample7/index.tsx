@@ -5,6 +5,7 @@ import {
     Field,
     ErrorMessage,
     FieldProps,
+    FieldArray,
 } from 'formik';
 import * as yup from 'yup';
 import styles from './styles.module.scss';
@@ -23,7 +24,7 @@ interface IValuesProps {
     phoneNumbers: string[];
 }
 
-function SimpleFormExample6() {
+function SimpleFormExample7() {
     const initialValues: IValuesProps = {
         name: '',
         email: '',
@@ -34,7 +35,7 @@ function SimpleFormExample6() {
             facebook: '',
             twitter: '',
         },
-        phoneNumbers: ['', '']
+        phoneNumbers: [],
     };
 
     const onSubmit = (values: IValuesProps) => {
@@ -57,7 +58,7 @@ function SimpleFormExample6() {
 
     return (
         <div className={styles.formWrap}>
-            <h1>Форма 6</h1>
+            <h1>Форма 7</h1>
 
             <Formik
                 initialValues={initialValues}
@@ -168,25 +169,44 @@ function SimpleFormExample6() {
 
                     {/* Поля массива номеров */}
                     <div className='form-control'>
-                        <label htmlFor='primaryPh'>Основной номер телефона</label>
-                        <Field
-                            type='text'
-                            id='primaryPh'
-                            name='phoneNumbers[0]'
-                            placeholder='Укажите основной номер телефона'
-                        />
-                        <MyErrorMessage name="phoneNumbers[0]" />
-                    </div>
+                        <label htmlFor='primaryPh'>Список телефонных номеров</label>
+                        <FieldArray name='phoneNumbers'>
+                            {
+                                ({push, insert, remove, form: {values}}) => {
+                                    const phoneNumbers: string[] = values.phoneNumbers;
 
-                    <div className='form-control'>
-                        <label htmlFor='secondaryPh'>Дополнительный номер телефона</label>
-                        <Field
-                            type='text'
-                            id='secondaryPh'
-                            name='phoneNumbers[1]'
-                            placeholder='Укажите дополнительный номер телефона'
-                        />
-                        <MyErrorMessage name="phoneNumbers[1]" />
+                                    return <>
+                                        { phoneNumbers && phoneNumbers.length > 0 
+                                            ? (
+                                                phoneNumbers.map((_, idx) => (
+                                                    <div key={idx}>
+                                                        <Field name={`phoneNumbers.${idx}`} />
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => remove(idx)}
+                                                        >
+                                                            -
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => insert(idx, '')}
+                                                        >
+                                                            +
+                                                        </button>
+                                                        <MyErrorMessage name={`phoneNumbers.${idx}`} />
+                                                    </div>
+                                                ))
+                                            )
+                                            : (
+                                                <button type="button" onClick={() => push('')}>
+                                                  Add a phone number
+                                                </button>
+                                            )
+                                        }
+                                    </>;
+                                }
+                            }
+                        </ FieldArray>
                     </div>
 
                     <button type='submit'>Submit</button>
@@ -196,4 +216,4 @@ function SimpleFormExample6() {
     );
 }
 
-export default SimpleFormExample6;
+export default SimpleFormExample7;

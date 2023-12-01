@@ -30,6 +30,7 @@ import SimpleFormExample3 from './pages/SimpleFormExample3';
 import SimpleFormExample4 from './pages/SimpleFormExample4';
 import SimpleFormExample5 from './pages/SimpleFormExample5';
 import SimpleFormExample6 from './pages/SimpleFormExample6';
+import SimpleFormExample7 from './pages/SimpleFormExample7';
 import './App.css';
 
 function App() {
@@ -47,7 +48,7 @@ function App() {
                 <AppBar position="fixed">
                     <Toolbar>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            Forms with React18, TypeScript, Formik, Yup and Material UII
+                            Forms with React18, TypeScript, Formik, Yup and Material UI
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -99,6 +100,9 @@ function App() {
                                     <ListItem button component={Link} to="/example6">
                                         <ListItemText primary="Пример 6" />
                                     </ListItem>
+                                    <ListItem button component={Link} to="/example7">
+                                        <ListItemText primary="Пример 7" />
+                                    </ListItem>
                                 </List>
                             </Collapse>
 
@@ -125,6 +129,7 @@ function App() {
                             <Route path="/example4" element={<SimpleFormExample4 />} />
                             <Route path="/example5" element={<SimpleFormExample5 />} />
                             <Route path="/example6" element={<SimpleFormExample6 />} />
+                            <Route path="/example7" element={<SimpleFormExample7 />} />
                         </Routes>
                     </Container>
 
