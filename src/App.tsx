@@ -32,6 +32,7 @@ import SimpleFormExample5 from './pages/SimpleFormExample5';
 import SimpleFormExample6 from './pages/SimpleFormExample6';
 import SimpleFormExample7 from './pages/SimpleFormExample7';
 import SimpleFormExample8 from './pages/SimpleFormExample8';
+import SimpleFormExample9 from './pages/SimpleFormExample9';
 import './App.css';
 
 function App() {
@@ -107,6 +108,9 @@ function App() {
                                     <ListItem button component={Link} to="/example8">
                                         <ListItemText primary="Пример 8" />
                                     </ListItem>
+                                    <ListItem button component={Link} to="/example9">
+                                        <ListItemText primary="Пример 9" />
+                                    </ListItem>
                                 </List>
                             </Collapse>
 
@@ -135,6 +139,7 @@ function App() {
                             <Route path="/example6" element={<SimpleFormExample6 />} />
                             <Route path="/example7" element={<SimpleFormExample7 />} />
                             <Route path="/example8" element={<SimpleFormExample8 />} />
+                            <Route path="/example9" element={<SimpleFormExample9 />} />
                         </Routes>
                     </Container>
 
