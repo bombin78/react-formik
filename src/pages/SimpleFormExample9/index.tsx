@@ -8,6 +8,7 @@ import {
     FieldArray,
     FastField,
     FormikProps,
+    FormikHelpers,
 } from 'formik';
 import * as yup from 'yup';
 import styles from './styles.module.scss';
@@ -40,8 +41,13 @@ function SimpleFormExample9() {
         phoneNumbers: [],
     };
 
-    const onSubmit = (values: IValuesProps) => {
+    const onSubmit = (
+        values: IValuesProps, 
+        onSubmitProps: FormikHelpers<IValuesProps>,
+    ) => {
         console.log('Form values', values);
+        // Имитация задержки ответа сервера после которого нужно разблокировать кнопку
+        setTimeout(() => onSubmitProps.setSubmitting(false), 1000);
     };
 
     const validationSchema = yup.object({
@@ -95,6 +101,12 @@ function SimpleFormExample9() {
                 initialValues={initialValues}
                 onSubmit={onSubmit}
                 validationSchema={validationSchema}
+                // validateOnMount запустит проверку формы (обернутую в Formik)
+                // при ее монтировании и/или когда изменяются начальные значения
+                // Этот вариант подходит для формы с небольшим количеством полей
+                // поэтому закомментируем его и используем второй вариант проверки
+                // смотри блокировку кнопки с использованием свойства formik.dirty
+                // validateOnMount
             >
                 {
                     (formik: FormikProps<IValuesProps>) => {
@@ -253,7 +265,8 @@ function SimpleFormExample9() {
                                     onClick={() => handleValidateField(formik, 'comment')}
                                 >
                                     Visit and validate comment
-                                    </button>
+                                </button>
+
                                 <button 
                                     type='button'
                                     onClick={() => handleValidateAll(formik, {
@@ -271,7 +284,37 @@ function SimpleFormExample9() {
                                 >
                                     Visit and validate all (without comment)
                                 </button>
-                                <button type='submit'>Submit</button>
+
+                                {/* Варианты блокировки кнопки отправки формы */}
+                                {/* 1. Вариант блокировки кнопки совместно с использование 
+                                    поля validateOnMount в компоненте Formik */}
+                                {/* <button 
+                                    type='submit'
+                                    disabled={!formik.isValid}
+                                >
+                                    Submit
+                                </button> */}
+
+                                {/* 2. Этот вариант блокировки подходит только для случая, когда
+                                пользователь будет точно менять значение хотя бы одного из полей.
+                                В противном случае кнопка останется заблокированной  */}
+                                {/* <button
+                                    type='submit'
+                                    // свойство dirty контролирует изменение в полях формы
+                                    disabled={!(formik.dirty && formik.isValid)}
+                                >
+                                    Submit
+                                </button> */}
+
+                                {/* Усовершенствованный вариант 2: кнопка также блокируется после
+                                    того как она была нажата до момента получения ответа с сервера
+                                    (разблокировка определена выше в методе onSubmit) */}
+                                <button
+                                    type='submit'
+                                    disabled={!(formik.dirty && formik.isValid) || formik.isSubmitting}
+                                >
+                                    Submit
+                                </button>
                             </Form>
                         );
                     }
